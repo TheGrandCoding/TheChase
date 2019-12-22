@@ -18,12 +18,14 @@ namespace TheChase.Server
         public event EventHandler<User> UserJoined;
 
         Thread newConThread;
-        public TcpListener LISTENER = new TcpListener(IPAddress.Loopback, Connection.PORT);
-        public NetworkHandler()
+        public TcpListener LISTENER = new TcpListener(IPAddress.Any, Connection.PORT);
+        public NetworkHandler(Server form)
         {
+            Form = form;
             LISTENER.Start();
+            newConThread = new Thread(newClientHandle);
+            newConThread.Start();
         }
-
 
         bool _listen = true;
         public bool Listening
@@ -34,6 +36,13 @@ namespace TheChase.Server
             }
             set
             {
+                if(_listen && !value)
+                { // setting false
+                    LISTENER.Start();
+                } else if (value && !_listen)
+                { // setting true
+                    LISTENER.Stop();
+                }
                 _listen = value;
             }
         }
@@ -41,6 +50,7 @@ namespace TheChase.Server
         public void Broadcast(Packet packet)
         {
             string s = packet.ToString();
+            Logger.LogMsg($"S/Broadcast: {s}", LogSeverity.Debug);
             lock(Connections)
             {
                 foreach(var usr in Connections.Values)
@@ -52,55 +62,83 @@ namespace TheChase.Server
 
         void newClientHandle()
         {
-            do
+            try
             {
-                TcpClient client = LISTENER.AcceptTcpClient();
-                Logger.LogMsg("New TcpClient connected");
-                var stream = client.GetStream();
-                var bytes = new Byte[client.ReceiveBufferSize];
-                stream.Read(bytes, 0, bytes.Length);
-                var data = Encoding.UTF8.GetString(bytes);
-
-                data = data.Replace("\0", "").Trim();
-                data = data.Substring(1, data.Length - 2);
-
-                var nClient = new User();
-                nClient.Id = Common.USER_ID++;
-                nClient.Name = data;
-                Logger.LogMsg($"New User: '{data}' ({nClient.Id})");
-                Common.Users[nClient.Id] = nClient;
-                var conn = new Connection(nClient.Id.ToString(), HandleConnDisconnect);
-                Connections[nClient.Id] = conn;
-                conn.Client = client;
-                conn.Listen();
-                conn.Receieved += Conn_Receieved;
-                var identity = new Packet(PacketId.GiveIdentity, nClient.ToObject());
-                conn.Send(identity.ToString());
-
-                Broadcast(new Packet(PacketId.UserJoined, nClient.ToObject()));
-                foreach (var id in Connections.Keys)
+                do
                 {
-                    if (Common.Users.TryGetValue(id, out var user))
+                    TcpClient client = LISTENER.AcceptTcpClient();
+                    Logger.LogMsg("New TcpClient connected");
+                    var stream = client.GetStream();
+                    var bytes = new Byte[client.ReceiveBufferSize];
+                    stream.Read(bytes, 0, bytes.Length);
+                    var data = Encoding.UTF8.GetString(bytes);
+
+                    data = data.Replace("\0", "").Trim();
+                    data = data.Substring(1, data.Length - 2);
+
+                    var nClient = new User();
+                    nClient.Id = Common.USER_ID++;
+                    nClient.Name = data;
+                    Logger.LogMsg($"New User: '{data}' ({nClient.Id})");
+                    Common.Users[nClient.Id] = nClient;
+                    var conn = new Connection(nClient.Id.ToString(), HandleConnDisconnect);
+                    Connections[nClient.Id] = conn;
+                    conn.Client = client;
+                    conn.Listen();
+                    conn.Receieved += Conn_Receieved;
+                    var identity = new Packet(PacketId.GiveIdentity, nClient.ToObject());
+                    conn.Send(identity.ToString());
+
+                    Broadcast(new Packet(PacketId.UserJoined, nClient.ToObject()));
+                    foreach (var id in Connections.Keys)
                     {
-                        // logically, this should be UserJoined, but for some reason
-                        // that doesnt work, yet this does; so...
-                        var packet = new Packet(PacketId.UserJoined, user.ToObject());
-                        conn.Send(packet.ToString());
+                        if (Common.Users.TryGetValue(id, out var user))
+                        {
+                            // logically, this should be UserJoined, but for some reason
+                            // that doesnt work, yet this does; so...
+                            var packet = new Packet(PacketId.UserJoined, user.ToObject());
+                            conn.Send(packet.ToString());
+                        }
                     }
-                }
 
-                Form.Invoke(new Action(() =>
-                {
-                    UserJoined?.Invoke(this, nClient);
-                }));
-            } while (_listen);
+                    Form.Invoke(new Action(() =>
+                    {
+                        UserJoined?.Invoke(this, nClient);
+                    }));
+                } while (_listen);
+            } catch (SocketException ex)
+            {
+                Logger.LogMsg(ex.ToString(), LogSeverity.Error);
+            }
         }
 
         private void Conn_Receieved(object sender, string e)
         {
             if(!(sender is Connection conn && uint.TryParse(conn.Reference, out var id) && Common.Users.TryGetValue(id, out var user)))
                 return;
+            Logger.LogMsg($"SREC/{conn.Reference}: {e}", LogSeverity.Debug);
             var packet = new Packet(e);
+            try
+            {
+                HandlePacket(conn, user, packet);
+            } catch (Exception ex)
+            {
+                Logger.LogMsg($"ERR/{conn.Reference}: {ex}", LogSeverity.Error);
+            }
+        }
+
+        void HandlePacket(Connection conn, User user, Packet packet)
+        {
+            if(packet.Id == PacketId.RequestRole)
+            {
+                var chr = packet.Content["r"].ToObject<char>();
+                Form.CurrentGame.Swap(user, chr);
+                Form.Invoke(new Action(() =>
+                {
+                    Form.UpdateUserList();
+                }));
+                Broadcast(new Packet(PacketId.SendGameState, Form.CurrentGame.ToObject()));
+            }
         }
 
         private Task HandleConnDisconnect(Connection connection, Exception error)

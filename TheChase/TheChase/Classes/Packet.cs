@@ -21,7 +21,12 @@ namespace TheChase.Classes
         /// Client attempts to give the answer to their question
         /// Content: Index of answer
         /// </summary>
-        SelectAnswer = 2,
+        SelectAnswer,
+        /// <summary>
+        /// Client asks for either 'P'layer, 'H'ost, or 'C'haser
+        /// Content: <see cref="Char"/>
+        /// </summary>
+        RequestRole,
 
         #endregion
         #region Server-Sent Packets
@@ -30,7 +35,7 @@ namespace TheChase.Classes
         /// Server tells Client a new head-2-head question has begun
         /// Content: <see cref="Question"/>
         /// </summary>
-        NewH2HQuestion = 3,
+        NewH2HQuestion,
         /// <summary>
         /// Server informs Clients that a user has disconnected
         /// </summary>
@@ -39,6 +44,16 @@ namespace TheChase.Classes
         /// Server informs Client of their <see cref="User"/>
         /// </summary>
         GiveIdentity,
+        /// <summary>
+        /// Server informs Client of the <see cref="Game"/> state
+        /// </summary>
+        SendGameState,
+        /// <summary>
+        /// Server orders Client to disconnect
+        /// Content: <see cref="string"/> reason
+        /// </summary>
+        Disconnect,
+        GameStarted,
 
 
         /// <summary>
@@ -62,7 +77,7 @@ namespace TheChase.Classes
         {
             var obj = JObject.Parse(json);
             Id = (PacketId)Enum.Parse(typeof(PacketId), obj["id"].ToObject<string>());
-            Content = JObject.Parse(obj["content"].ToString());
+            Content = JObject.Parse(obj["payload"].ToString());
         }
         [JsonProperty("i")]
         public PacketId Id { get; set; }

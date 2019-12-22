@@ -10,19 +10,48 @@ namespace TheChase.Client
 {
     public class ClientConnection : Connection
     {
-        public ClientConnection(string name, Func<Connection, Exception, Task> callback) : base(name, callback)
+        MainClient MainForm;
+        public event EventHandler<User> SelfIdentity;
+        public event EventHandler<User> UserJoined;
+        public event EventHandler<User> UserDisconnect;
+        public event EventHandler<Classes.Game> GameUpdate;
+        public ClientConnection(MainClient form, string name, Func<Connection, Exception, Task> callback) : base(name, callback)
         {
+            MainForm = form;
             this.Receieved += ClientConnection_Receieved;
         }
 
         public Task Connect(IPAddress addr)
         {
+            if(Client == null)
+            {
+                Client = new System.Net.Sockets.TcpClient(System.Net.Sockets.AddressFamily.InterNetwork);
+            }
             return Client.ConnectAsync(addr, PORT);
         }
 
         private void ClientConnection_Receieved(object sender, string e)
         {
             var packet = new Packet(e);
+            if(packet.Id == PacketId.GiveIdentity)
+            {
+                var usr = new User(packet.Content);
+                MainForm.Invoke(new Action(() => { SelfIdentity?.Invoke(this, usr); }));
+            } else if (packet.Id == PacketId.UserJoined)
+            {
+                var usr = new User(packet.Content);
+                MainForm.Invoke(new Action(() => { UserJoined?.Invoke(this, usr); }));
+            } else if (packet.Id == PacketId.SendGameState)
+            {
+                var game = new Classes.Game(packet.Content);
+                MainForm.Invoke(new Action(() => { GameUpdate?.Invoke(this, game); }));
+            } else if (packet.Id == PacketId.Disconnect)
+            {
+                MainForm.Invoke(new Action(() =>
+                {
+                    this.Close(new Exception(packet.Content["reason"].ToObject<string>()));
+                }));
+            }
         }
     }
 }

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Connection.cs" />
+    <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\JsonEntity.cs" />
     <Compile Include="Classes\Packet.cs" />
     <Compile Include="Classes\Question.cs" />
@@ -74,6 +75,7 @@
       <DependentUpon>MoneyBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="ControlExtensions.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Masterlist.cs" />
     <Compile Include="Classes\MasterlistServer.cs" />

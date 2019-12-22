@@ -102,7 +102,7 @@ namespace TheChase
                 throw new InvalidOperationException("Could not get masterlist: " + err);
             }
         }
-        static async Task<string> GetExternalIP()
+        public static async Task<string> GetExternalIP()
         {
             using (var client = new HttpClient())
             {
@@ -112,7 +112,7 @@ namespace TheChase
                 return content.Trim();
             }
         }
-        static System.Net.IPAddress GetInternalIP()
+        public static System.Net.IPAddress GetInternalIP()
         {
             var host = System.Net.Dns.GetHostName();
             var ips = System.Net.Dns.GetHostAddresses(host);
@@ -128,6 +128,16 @@ namespace TheChase
             createCheck();
             var intIp = GetInternalIP();
             var extIp = await GetExternalIP();
+            if(Id != Guid.Empty && Nonce != 0)
+            { // seems we may already have a server, so we'll continue it..
+                var did = await ContinueServer();
+                if (did)
+                { // all is well, we successfully continued. 
+                    var oldSrv = new MasterlistServer(name, extIp, intIp.ToString(), TYPE, false);
+                    return oldSrv;
+                }
+
+            }
             var request = new HttpRequestMessage(HttpMethod.Put,
                 $"/masterlist/create?name={Uri.EscapeDataString(name)}&extn={extIp}&intl={intIp}&type={TYPE}&pass=false");
             var response = await Client.SendAsync(request);
@@ -162,7 +172,7 @@ namespace TheChase
             {
                 throw new InvalidOperationException($"Cannot set players on a server that has not been registerd to masterlist");
             }
-            var request = new HttpRequestMessage(HttpMethod.Get,
+            var request = new HttpRequestMessage(HttpMethod.Post,
                 $"/masterlist/players?id={m_id}&nonce={m_nonce}&value={players}");
             var response = await Client.SendAsync(request);
             var content = await response.Content.ReadAsStringAsync();
@@ -172,7 +182,12 @@ namespace TheChase
 
         public static async Task<bool> ContinueServer()
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Post, 
+                $"/masterlist/continue?id={Id}&nonce={Nonce}");
+            var response = await Client.SendAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+            Log?.Invoke(null, $"Continue: {response.StatusCode} {content}");
+            return response.IsSuccessStatusCode;
         }
 
     }

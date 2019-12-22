@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheChase.Classes;
 
 namespace TheChase.Server
 {
@@ -26,7 +27,13 @@ namespace TheChase.Server
         {
             rlMLThread = null;
             MLServer = server;
-            this.Text = $"Server Hosted on ML";
+            if(server == null)
+            {
+                this.Text = "Failed to Host, see logs";
+            } else
+            {
+                this.Text = $"Server Hosted on ML";
+            }
         }
 
         async void RLMasterList()
@@ -70,7 +77,7 @@ namespace TheChase.Server
 
         private void Server_Load(object sender, EventArgs e)
         {
-            NETWORK = new NetworkHandler();
+            NETWORK = new NetworkHandler(this);
             NETWORK.UserJoined += NETWORK_UserJoined;
             mlTimer.Interval = 1;
             mlTimer.Start();
@@ -78,11 +85,34 @@ namespace TheChase.Server
 
         private void NETWORK_UserJoined(object sender, Classes.User e)
         {
+            if (CurrentGame == null)
+                CurrentGame = new Game();
+            Common.Users[e.Id] = e;
+            if (CurrentGame.P1 == null)
+                CurrentGame.P1 = e;
+            else if (CurrentGame.P2 == null)
+                CurrentGame.P2 = e;
+            else if (CurrentGame.P3 == null)
+                CurrentGame.P3 = e;
+            else if (CurrentGame.P4 == null)
+                CurrentGame.P4 = e;
+            else if (CurrentGame.Host == null)
+                CurrentGame.Host = e;
+            else if (CurrentGame.Chaser == null)
+                CurrentGame.Chaser = e;
+            else
+                CurrentGame.Spectators.Add(e);
+            UpdateUserList();
+            NETWORK.Broadcast(new Packet(PacketId.SendGameState, CurrentGame.ToObject()));
+        }
+
+        public void UpdateUserList()
+        {
             lbUsers.Items.Clear();
-            foreach(var user in Common.Users.Values)
+            foreach (var user in Common.Users.Values)
             {
-                lbUsers.Items.Add($"{user.Id}: {user.Name}");
-            } 
+                lbUsers.Items.Add($"{user.Id}: {user.Name} {CurrentGame.GetRole(user)}");
+            }
         }
 
         private void mlTimer_Tick(object sender, EventArgs e)
@@ -94,6 +124,44 @@ namespace TheChase.Server
                 mlTimer.Interval = 120 * 1000;
             this.Text = $"The Chase | Updating ML... ({mlTimer.Interval / 1000})";
             RLMasterList();
+        }
+
+        // Game stuffs
+
+        public Game CurrentGame;
+
+        private void Server_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                var jobj = new Newtonsoft.Json.Linq.JObject();
+                jobj["reason"] = "Server close";
+                NETWORK.Broadcast(new Packet(PacketId.Disconnect, jobj));
+                NETWORK.Listening = false;
+            } catch { }
+        }
+
+        private void Server_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                TheChase.Menu.SERVER = null;
+                Common.Users.Clear();
+                NETWORK.Connections.Clear();
+                NETWORK.LISTENER.Stop();
+            }
+            catch { }
+        }
+
+        private void btnStartGame_Click(object sender, EventArgs e)
+        {
+            if(CurrentGame.Started)
+            {
+                btnStartGame.Enabled = false;
+                return;
+            }
+            CurrentGame.Started = true;
+            NETWORK.Broadcast(new Packet(PacketId.GameStarted, new Newtonsoft.Json.Linq.JObject()));
         }
     }
 }

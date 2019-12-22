@@ -32,9 +32,13 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbUsers = new System.Windows.Forms.ListBox();
             this.mlTimer = new System.Windows.Forms.Timer(this.components);
+            this.lobbyPanel = new System.Windows.Forms.Panel();
+            this.btnStartGame = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.lobbyPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -47,6 +51,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.lbUsers);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.lobbyPanel);
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
             this.splitContainer1.SplitterDistance = 400;
             this.splitContainer1.TabIndex = 0;
@@ -65,6 +73,24 @@
             // 
             this.mlTimer.Tick += new System.EventHandler(this.mlTimer_Tick);
             // 
+            // lobbyPanel
+            // 
+            this.lobbyPanel.Controls.Add(this.btnStartGame);
+            this.lobbyPanel.Location = new System.Drawing.Point(3, 12);
+            this.lobbyPanel.Name = "lobbyPanel";
+            this.lobbyPanel.Size = new System.Drawing.Size(381, 145);
+            this.lobbyPanel.TabIndex = 0;
+            // 
+            // btnStartGame
+            // 
+            this.btnStartGame.Location = new System.Drawing.Point(3, 3);
+            this.btnStartGame.Name = "btnStartGame";
+            this.btnStartGame.Size = new System.Drawing.Size(285, 86);
+            this.btnStartGame.TabIndex = 0;
+            this.btnStartGame.Text = "Start Game";
+            this.btnStartGame.UseVisualStyleBackColor = true;
+            this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -73,10 +99,14 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "Server";
             this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Server_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Server_FormClosed);
             this.Load += new System.EventHandler(this.Server_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.lobbyPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -86,5 +116,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox lbUsers;
         private System.Windows.Forms.Timer mlTimer;
+        private System.Windows.Forms.Panel lobbyPanel;
+        private System.Windows.Forms.Button btnStartGame;
     }
 }

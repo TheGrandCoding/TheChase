@@ -20,11 +20,25 @@ namespace TheChase
         {
             btnClient.Enabled = CLIENT == null;
             btnServer.Enabled = SERVER == null && CLIENT == null;
+            btnServer.BackColor = Color.FromKnownColor(KnownColor.Control);
             btnClient.BackColor = SERVER == null ? Color.FromKnownColor(KnownColor.Control) : Color.OrangeRed;
-            btnClient.Text = SERVER == null ? "Join a Game" : "Client CoI";
+            btnClient.Text = SERVER == null ? "Join a Game" : "Cannot join self";
             // Since the Server will need to verify moneybuilder questions, they cannot be part of the game
             // hence: If Client, no Server
             //        If Server, no Client
+
+#if DEBUG
+            if(btnClient.Enabled == false)
+            {
+                btnClient.BackColor = Color.Red;
+                btnClient.Enabled = true;
+            }
+            if(btnServer.Enabled == false)
+            {
+                btnServer.BackColor = Color.Red;
+                btnServer.Enabled = true;
+            }
+#endif
         }
 
         public Menu()
