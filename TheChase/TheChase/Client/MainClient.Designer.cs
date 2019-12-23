@@ -40,6 +40,7 @@
             this.tabConnect = new System.Windows.Forms.TabPage();
             this.tabLobby = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.lbSpectators = new System.Windows.Forms.ListBox();
             this.lblHost = new System.Windows.Forms.Label();
             this.lblChaser = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -49,7 +50,20 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.lblP2 = new System.Windows.Forms.Label();
             this.lblP1 = new System.Windows.Forms.Label();
-            this.lbSpectators = new System.Windows.Forms.ListBox();
+            this.tabMoneyBuilder = new System.Windows.Forms.TabPage();
+            this.btnMBHost = new System.Windows.Forms.Button();
+            this.btnMBChaser = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnMBP4 = new System.Windows.Forms.Button();
+            this.btnMBP3 = new System.Windows.Forms.Button();
+            this.btnMBP2 = new System.Windows.Forms.Button();
+            this.btnMBP1 = new System.Windows.Forms.Button();
+            this.lblMGReward = new System.Windows.Forms.Label();
+            this.gbMBResponses = new System.Windows.Forms.GroupBox();
+            this.lblMGPlaying = new System.Windows.Forms.Label();
+            this.lblMGQuestion = new System.Windows.Forms.Label();
+            this.txtMGText = new System.Windows.Forms.TextBox();
+            this.btnMGSubmit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServers)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabConnect.SuspendLayout();
@@ -70,6 +84,9 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.tabMoneyBuilder.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.gbMBResponses.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvServers
@@ -140,6 +157,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabConnect);
             this.tabControl1.Controls.Add(this.tabLobby);
+            this.tabControl1.Controls.Add(this.tabMoneyBuilder);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -189,6 +207,19 @@
             this.splitContainer4.SplitterDistance = 558;
             this.splitContainer4.TabIndex = 7;
             this.splitContainer4.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer4_SplitterMoved);
+            // 
+            // lbSpectators
+            // 
+            this.lbSpectators.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbSpectators.FormattingEnabled = true;
+            this.lbSpectators.ItemHeight = 16;
+            this.lbSpectators.Items.AddRange(new object[] {
+            "Spectators:"});
+            this.lbSpectators.Location = new System.Drawing.Point(0, 57);
+            this.lbSpectators.Name = "lbSpectators";
+            this.lbSpectators.Size = new System.Drawing.Size(558, 119);
+            this.lbSpectators.TabIndex = 5;
+            this.lbSpectators.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSpectators_MouseDoubleClick);
             // 
             // lblHost
             // 
@@ -322,18 +353,144 @@
             this.lblP1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblP1.DoubleClick += new System.EventHandler(this.lblPlayer_DoubleClick);
             // 
-            // lbSpectators
+            // tabMoneyBuilder
             // 
-            this.lbSpectators.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSpectators.FormattingEnabled = true;
-            this.lbSpectators.ItemHeight = 16;
-            this.lbSpectators.Items.AddRange(new object[] {
-            "Spectators:"});
-            this.lbSpectators.Location = new System.Drawing.Point(0, 57);
-            this.lbSpectators.Name = "lbSpectators";
-            this.lbSpectators.Size = new System.Drawing.Size(558, 119);
-            this.lbSpectators.TabIndex = 5;
-            this.lbSpectators.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSpectators_MouseDoubleClick);
+            this.tabMoneyBuilder.Controls.Add(this.lblMGQuestion);
+            this.tabMoneyBuilder.Controls.Add(this.lblMGPlaying);
+            this.tabMoneyBuilder.Controls.Add(this.gbMBResponses);
+            this.tabMoneyBuilder.Controls.Add(this.btnMBHost);
+            this.tabMoneyBuilder.Controls.Add(this.btnMBChaser);
+            this.tabMoneyBuilder.Controls.Add(this.panel1);
+            this.tabMoneyBuilder.Location = new System.Drawing.Point(4, 25);
+            this.tabMoneyBuilder.Name = "tabMoneyBuilder";
+            this.tabMoneyBuilder.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMoneyBuilder.Size = new System.Drawing.Size(1122, 470);
+            this.tabMoneyBuilder.TabIndex = 2;
+            this.tabMoneyBuilder.Text = "Money Builder";
+            this.tabMoneyBuilder.UseVisualStyleBackColor = true;
+            // 
+            // btnMBHost
+            // 
+            this.btnMBHost.Location = new System.Drawing.Point(850, 9);
+            this.btnMBHost.Name = "btnMBHost";
+            this.btnMBHost.Size = new System.Drawing.Size(129, 62);
+            this.btnMBHost.TabIndex = 2;
+            this.btnMBHost.Text = "button2";
+            this.btnMBHost.UseVisualStyleBackColor = true;
+            // 
+            // btnMBChaser
+            // 
+            this.btnMBChaser.Location = new System.Drawing.Point(985, 9);
+            this.btnMBChaser.Name = "btnMBChaser";
+            this.btnMBChaser.Size = new System.Drawing.Size(129, 62);
+            this.btnMBChaser.TabIndex = 1;
+            this.btnMBChaser.Text = "button1";
+            this.btnMBChaser.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblMGReward);
+            this.panel1.Controls.Add(this.btnMBP4);
+            this.panel1.Controls.Add(this.btnMBP3);
+            this.panel1.Controls.Add(this.btnMBP2);
+            this.panel1.Controls.Add(this.btnMBP1);
+            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(194, 456);
+            this.panel1.TabIndex = 0;
+            // 
+            // btnMBP4
+            // 
+            this.btnMBP4.Location = new System.Drawing.Point(3, 324);
+            this.btnMBP4.Name = "btnMBP4";
+            this.btnMBP4.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP4.TabIndex = 3;
+            this.btnMBP4.Text = "button4";
+            this.btnMBP4.UseVisualStyleBackColor = true;
+            // 
+            // btnMBP3
+            // 
+            this.btnMBP3.Location = new System.Drawing.Point(3, 226);
+            this.btnMBP3.Name = "btnMBP3";
+            this.btnMBP3.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP3.TabIndex = 2;
+            this.btnMBP3.Text = "button3";
+            this.btnMBP3.UseVisualStyleBackColor = true;
+            // 
+            // btnMBP2
+            // 
+            this.btnMBP2.Location = new System.Drawing.Point(3, 109);
+            this.btnMBP2.Name = "btnMBP2";
+            this.btnMBP2.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP2.TabIndex = 1;
+            this.btnMBP2.Text = "button2";
+            this.btnMBP2.UseVisualStyleBackColor = true;
+            // 
+            // btnMBP1
+            // 
+            this.btnMBP1.Location = new System.Drawing.Point(3, 3);
+            this.btnMBP1.Name = "btnMBP1";
+            this.btnMBP1.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP1.TabIndex = 0;
+            this.btnMBP1.Text = "button1";
+            this.btnMBP1.UseVisualStyleBackColor = true;
+            // 
+            // lblMGReward
+            // 
+            this.lblMGReward.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMGReward.Location = new System.Drawing.Point(3, 407);
+            this.lblMGReward.Name = "lblMGReward";
+            this.lblMGReward.Size = new System.Drawing.Size(188, 49);
+            this.lblMGReward.TabIndex = 4;
+            this.lblMGReward.Text = "$0";
+            this.lblMGReward.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gbMBResponses
+            // 
+            this.gbMBResponses.Controls.Add(this.btnMGSubmit);
+            this.gbMBResponses.Controls.Add(this.txtMGText);
+            this.gbMBResponses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbMBResponses.Location = new System.Drawing.Point(208, 214);
+            this.gbMBResponses.Name = "gbMBResponses";
+            this.gbMBResponses.Size = new System.Drawing.Size(906, 248);
+            this.gbMBResponses.TabIndex = 3;
+            this.gbMBResponses.TabStop = false;
+            this.gbMBResponses.Text = "Your response";
+            // 
+            // lblMGPlaying
+            // 
+            this.lblMGPlaying.Location = new System.Drawing.Point(208, 9);
+            this.lblMGPlaying.Name = "lblMGPlaying";
+            this.lblMGPlaying.Size = new System.Drawing.Size(636, 62);
+            this.lblMGPlaying.TabIndex = 4;
+            this.lblMGPlaying.Text = "Playing";
+            this.lblMGPlaying.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMGQuestion
+            // 
+            this.lblMGQuestion.Location = new System.Drawing.Point(208, 74);
+            this.lblMGQuestion.Name = "lblMGQuestion";
+            this.lblMGQuestion.Size = new System.Drawing.Size(903, 103);
+            this.lblMGQuestion.TabIndex = 5;
+            this.lblMGQuestion.Text = "Question";
+            this.lblMGQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtMGText
+            // 
+            this.txtMGText.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMGText.Location = new System.Drawing.Point(6, 116);
+            this.txtMGText.Name = "txtMGText";
+            this.txtMGText.Size = new System.Drawing.Size(894, 45);
+            this.txtMGText.TabIndex = 0;
+            // 
+            // btnMGSubmit
+            // 
+            this.btnMGSubmit.Location = new System.Drawing.Point(771, 167);
+            this.btnMGSubmit.Name = "btnMGSubmit";
+            this.btnMGSubmit.Size = new System.Drawing.Size(129, 62);
+            this.btnMGSubmit.TabIndex = 6;
+            this.btnMGSubmit.Text = "Submit";
+            this.btnMGSubmit.UseVisualStyleBackColor = true;
             // 
             // MainClient
             // 
@@ -365,6 +522,10 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.tabMoneyBuilder.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.gbMBResponses.ResumeLayout(false);
+            this.gbMBResponses.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -392,5 +553,19 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.ListBox lbSpectators;
+        private System.Windows.Forms.TabPage tabMoneyBuilder;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnMBP4;
+        private System.Windows.Forms.Button btnMBP3;
+        private System.Windows.Forms.Button btnMBP2;
+        private System.Windows.Forms.Button btnMBP1;
+        private System.Windows.Forms.Button btnMBHost;
+        private System.Windows.Forms.Button btnMBChaser;
+        private System.Windows.Forms.Label lblMGReward;
+        private System.Windows.Forms.Label lblMGPlaying;
+        private System.Windows.Forms.GroupBox gbMBResponses;
+        private System.Windows.Forms.Label lblMGQuestion;
+        private System.Windows.Forms.TextBox txtMGText;
+        private System.Windows.Forms.Button btnMGSubmit;
     }
 }

@@ -6,14 +6,16 @@ using System.Windows.Forms;
 
 namespace TheChase
 {
-    static class Program
+    public static class Program
     {
+        public static Random RND;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            RND = new Random(DateTime.Now.DayOfYear * DateTime.Now.Millisecond);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Menu());

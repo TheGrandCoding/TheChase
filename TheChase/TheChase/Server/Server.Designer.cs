@@ -31,9 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbUsers = new System.Windows.Forms.ListBox();
-            this.mlTimer = new System.Windows.Forms.Timer(this.components);
             this.lobbyPanel = new System.Windows.Forms.Panel();
             this.btnStartGame = new System.Windows.Forms.Button();
+            this.mlTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnAddNewQs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -69,12 +70,9 @@
             this.lbUsers.Size = new System.Drawing.Size(400, 450);
             this.lbUsers.TabIndex = 0;
             // 
-            // mlTimer
-            // 
-            this.mlTimer.Tick += new System.EventHandler(this.mlTimer_Tick);
-            // 
             // lobbyPanel
             // 
+            this.lobbyPanel.Controls.Add(this.btnAddNewQs);
             this.lobbyPanel.Controls.Add(this.btnStartGame);
             this.lobbyPanel.Location = new System.Drawing.Point(3, 12);
             this.lobbyPanel.Name = "lobbyPanel";
@@ -85,11 +83,25 @@
             // 
             this.btnStartGame.Location = new System.Drawing.Point(3, 3);
             this.btnStartGame.Name = "btnStartGame";
-            this.btnStartGame.Size = new System.Drawing.Size(285, 86);
+            this.btnStartGame.Size = new System.Drawing.Size(155, 86);
             this.btnStartGame.TabIndex = 0;
             this.btnStartGame.Text = "Start Game";
             this.btnStartGame.UseVisualStyleBackColor = true;
             this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
+            // 
+            // mlTimer
+            // 
+            this.mlTimer.Tick += new System.EventHandler(this.mlTimer_Tick);
+            // 
+            // btnAddNewQs
+            // 
+            this.btnAddNewQs.Location = new System.Drawing.Point(223, 3);
+            this.btnAddNewQs.Name = "btnAddNewQs";
+            this.btnAddNewQs.Size = new System.Drawing.Size(155, 86);
+            this.btnAddNewQs.TabIndex = 1;
+            this.btnAddNewQs.Text = "Add New Questions";
+            this.btnAddNewQs.UseVisualStyleBackColor = true;
+            this.btnAddNewQs.Click += new System.EventHandler(this.btnAddNewQs_Click);
             // 
             // Server
             // 
@@ -118,5 +130,6 @@
         private System.Windows.Forms.Timer mlTimer;
         private System.Windows.Forms.Panel lobbyPanel;
         private System.Windows.Forms.Button btnStartGame;
+        private System.Windows.Forms.Button btnAddNewQs;
     }
 }

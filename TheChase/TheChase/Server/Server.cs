@@ -81,6 +81,12 @@ namespace TheChase.Server
             NETWORK.UserJoined += NETWORK_UserJoined;
             mlTimer.Interval = 1;
             mlTimer.Start();
+            QUESTIONS.Load();
+        }
+
+        void SendGameState()
+        {
+            NETWORK.Broadcast(new Packet(PacketId.SendGameState, CurrentGame.ToObject()));
         }
 
         private void NETWORK_UserJoined(object sender, Classes.User e)
@@ -103,7 +109,7 @@ namespace TheChase.Server
             else
                 CurrentGame.Spectators.Add(e);
             UpdateUserList();
-            NETWORK.Broadcast(new Packet(PacketId.SendGameState, CurrentGame.ToObject()));
+            SendGameState();
         }
 
         public void UpdateUserList()
@@ -155,13 +161,34 @@ namespace TheChase.Server
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            if(CurrentGame.Started)
+            if(CurrentGame.Stage != GameStage.Lobby)
             {
                 btnStartGame.Enabled = false;
                 return;
             }
-            CurrentGame.Started = true;
-            NETWORK.Broadcast(new Packet(PacketId.GameStarted, new Newtonsoft.Json.Linq.JObject()));
+            CurrentGame.Stage = GameStage.MoneyBuilders;
+            CurrentGame.WaitingOn = CurrentGame.P1;
+            SendGameState();
+        }
+
+        private void btnAddNewQs_Click(object sender, EventArgs e)
+        {
+            var thing = new NewQuestionAdder();
+            thing.ShowDialog();
+            var q = thing.GetQuestion();
+            if(q != null)
+            {
+                if(q is MoneyBuilderQ money)
+                {
+                    QUESTIONS.OpenQuestions.Add(money);
+                    QUESTIONS.Save();
+                } else
+                {
+                    QUESTIONS.ClosedQuestions.Add(q);
+                    QUESTIONS.Save();
+                }
+                btnAddNewQs.PerformClick();
+            }
         }
     }
 }

@@ -138,6 +138,11 @@ namespace TheChase.Server
                     Form.UpdateUserList();
                 }));
                 Broadcast(new Packet(PacketId.SendGameState, Form.CurrentGame.ToObject()));
+            } else if(packet.Id == PacketId.ReadyMB)
+            {
+                var game = Form.CurrentGame;
+                if (game.Stage != GameStage.MoneyBuilders) return;
+                var q = new MoneyBuilderQ();
             }
         }
 

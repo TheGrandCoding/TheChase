@@ -7,6 +7,13 @@ using Newtonsoft.Json.Linq;
 
 namespace TheChase.Classes
 {
+    public enum GameStage
+    {
+        Lobby,
+        MoneyBuilders,
+        Individual,
+        Group
+    }
     public class Game : JsonEntity
     {
         public Game() : base(null) { }
@@ -17,8 +24,10 @@ namespace TheChase.Classes
         public User Host;
         public User Chaser;
         public List<User> Spectators = new List<User>();
-        public bool Started;
+        public GameStage Stage;
         public int Reward;
+
+        public User WaitingOn;
 
         void removePlayer(User u)
         {
@@ -114,6 +123,11 @@ namespace TheChase.Classes
             var arr = obj["s"].ToObject<uint[]>();
             Spectators = arr.Select(x => Common.GetUser(x)).ToList();
             Reward = obj["r"].ToObject<int>();
+            Stage = obj["stg"].ToObject<GameStage>();
+            if(obj.TryGetValue("wait", out var val))
+            {
+                WaitingOn = Common.GetUser(val.ToObject<uint>());
+            }
         }
 
         public override JObject ToObject()
@@ -127,6 +141,9 @@ namespace TheChase.Classes
             jobj["c"] = Chaser?.Id ?? 0;
             jobj["r"] = Reward;
             jobj["s"] = JToken.FromObject(Spectators.Select(x => x.Id).ToList());
+            jobj["stg"] = JToken.FromObject(Stage);
+            if (WaitingOn != null)
+                jobj["wait"] = WaitingOn.Id;
             return jobj;
         }
     }

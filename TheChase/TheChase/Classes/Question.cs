@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace TheChase.Classes
 {
-    public abstract class Question : JsonEntity
+    public class Question : JsonEntity
     {
+        public Question() : base(null) { }
         public Question(JObject obj) : base(obj)
         {
             Prompt = obj["p"].ToObject<string>();

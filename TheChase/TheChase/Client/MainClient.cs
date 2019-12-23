@@ -28,6 +28,9 @@ namespace TheChase.Client
                 }));
             }
         }
+        public bool MoneyBuilderStarted = false;
+        public bool QuestionsStarted = false;
+        public bool FinalChaseStarted = false;
         public Classes.User SelfUser;
         public MainClient()
         {
@@ -39,7 +42,7 @@ namespace TheChase.Client
             Client.GameUpdate += Client_GameUpdate;
         }
 
-        Color getColor(Label lbl)
+        Color getColor(Control lbl)
         {
             var last = lbl.Name[lbl.Name.Length - 1];
             if (last == 't')
@@ -53,17 +56,33 @@ namespace TheChase.Client
             return Color.LightBlue;
         }
 
-        private void Client_GameUpdate(object sender, Classes.Game e)
+        void setupControlUser(Control control, User u, string text = null, bool doBackElseFront = true)
         {
-            lblP1.Tag = e.P1;
-            lblP2.Tag = e.P2;
-            lblP3.Tag = e.P3;
-            lblP4.Tag = e.P4;
-            lblHost.Tag = e.Host;
-            lblChaser.Tag = e.Chaser;
-            foreach(var lbl in new Label[] { lblP1, lblP2, lblP2, lblP3, lblP4, lblHost, lblChaser})
+            if (text == null)
+                text = u.Name;
+            control.Text = text;
+            if(doBackElseFront)
             {
-                if(lbl.Tag == null)
+                control.BackColor = u.Id == SelfUser.Id ? Color.Yellow : getColor(control);
+                control.ForeColor = Color.Black;
+            } else
+            {
+                control.ForeColor = u.Id == SelfUser.Id ? Color.Yellow : getColor(control);
+                control.BackColor = Color.FromKnownColor(KnownColor.Control);
+            }
+        }
+
+        void gameReflectControls(Game e, Control P1, Control P2, Control P3, Control P4, Control Host, Control Chaser)
+        {
+            P1.Tag = e.P1;
+            P2.Tag = e.P2;
+            P3.Tag = e.P3;
+            P4.Tag = e.P4;
+            Host.Tag = e.Host;
+            Chaser.Tag = e.Chaser;
+            foreach (var lbl in new Control[] { P1, P2, P2, P3, P4, Host, Chaser })
+            {
+                if (lbl.Tag == null)
                 {
                     var last = lbl.Name[lbl.Name.Length - 1];
                     lbl.BackColor = getColor(lbl);
@@ -79,25 +98,46 @@ namespace TheChase.Client
                     {
                         lbl.Text = "Player #" + last.ToString();
                     }
-                } else if(lbl.Tag is User usr)
+                }
+                else if (lbl.Tag is User usr)
                 {
-                    lbl.Text = usr.Name;
-                    lbl.BackColor = usr.Id == SelfUser.Id ? Color.Yellow : getColor(lbl);
-                    lbl.ForeColor = Color.Black;
+                    setupControlUser(lbl, usr);
                 }
             }
             lbSpectators.Items.Clear();
             lbSpectators.Items.Add("Spectators:");
-            foreach(var spectator in e.Spectators)
+            foreach (var spectator in e.Spectators)
             {
-                if(spectator == SelfUser)
+                if (spectator == SelfUser)
                 {
                     lbSpectators.Items.Add($"[{spectator.Name}]");
-                } else
+                }
+                else
                 {
                     lbSpectators.Items.Add(spectator.Name);
                 }
             }
+        }
+
+        private void Client_GameUpdate(object sender, Classes.Game e)
+        {
+            if(e.Stage == GameStage.Lobby)
+            {
+                gameReflectControls(e, lblP1, lblP2, lblP3, lblP4, lblHost, lblChaser);
+                TabControlPage = 1;
+            } else if (e.Stage == GameStage.MoneyBuilders)
+            {
+                TabControlPage = 2;
+                gameReflectControls(e, btnMBP1, btnMBP2, btnMBP3, btnMBP4, btnMBHost, btnMBChaser);
+                setupControlUser(lblMGPlaying, e.WaitingOn, $"Playing: {e.WaitingOn.Name}", false);
+                if(e.WaitingOn.Id == SelfUser.Id)
+                {
+                    Client.Send(new Packet(PacketId.ReadyMB, new Newtonsoft.Json.Linq.JObject()).ToString());
+                }
+                gbMBResponses.Visible = e.WaitingOn.Id == SelfUser.Id;
+                txtMGText.Text = "";
+            }
+            fixSplittersHalf();
         }
 
         private void Client_UserDisconnect(object sender, Classes.User e)
@@ -177,15 +217,24 @@ namespace TheChase.Client
             }
         }
 
+        void fixSplittersHalf()
+        {
+            this.ForAllControls(x =>
+            {
+                if (x is SplitContainer split)
+                {
+                    split.SplitterDistance = (int)(split.Width / 2);
+                    split.IsSplitterFixed = true;
+                }
+            });
+        }
+
         private void MainClient_Load(object sender, EventArgs e)
         {
             mlTimer.Interval = 1;
             mlTimer.Start();
             TabControlPage = 0;
-            foreach(var split in new SplitContainer[] { splitContainer1, splitContainer2, splitContainer3, splitContainer4 })
-            {
-                split.SplitterDistance = (int)(split.Width / 2);
-            }
+            fixSplittersHalf();
         }
 
         private void mlTimer_Tick(object sender, EventArgs e)

@@ -27,6 +27,10 @@ namespace TheChase.Classes
         /// Content: <see cref="Char"/>
         /// </summary>
         RequestRole,
+        /// <summary>
+        /// Client is ready for their money builder
+        /// </summary>
+        ReadyMB,
 
         #endregion
         #region Server-Sent Packets
