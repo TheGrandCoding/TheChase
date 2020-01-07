@@ -86,11 +86,29 @@ namespace TheChase.Classes
                 var convert = rand + 1;
                 if (!doneQs.Contains(convert))
                 {
-                    q = ClosedQuestions[rand];
+                    q = ClosedQuestions[convert];
                     doneQs.Add(convert);
                 }
                 tries++;
             } while (q == null && tries < ClosedQuestions.Count);
+            return q;
+        }
+
+        public static Question GetOpen()
+        {
+            MoneyBuilderQ q = null;
+            int tries = 0;
+            do
+            {
+                int rand = Program.RND.Next(0, OpenQuestions.Count);
+                var convert = -(rand + 1);
+                if (!doneQs.Contains(convert))
+                {
+                    q = OpenQuestions[convert];
+                    doneQs.Add(convert);
+                }
+                tries++;
+            } while (q == null && tries < OpenQuestions.Count);
             return q;
         }
 

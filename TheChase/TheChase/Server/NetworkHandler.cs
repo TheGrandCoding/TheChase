@@ -142,7 +142,8 @@ namespace TheChase.Server
             {
                 var game = Form.CurrentGame;
                 if (game.Stage != GameStage.MoneyBuilders) return;
-                var q = new MoneyBuilderQ();
+                var q = QUESTIONS.GetOpen();
+
             }
         }
 
