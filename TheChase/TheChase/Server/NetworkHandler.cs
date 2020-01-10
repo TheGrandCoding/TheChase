@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -143,7 +144,15 @@ namespace TheChase.Server
                 var game = Form.CurrentGame;
                 if (game.Stage != GameStage.MoneyBuilders) return;
                 var q = QUESTIONS.GetOpen();
-
+                q.GivenAt = DateTime.Now;
+                q.DueBefore = q.GivenAt.AddSeconds(90);
+                q.WaitingFor = game.WaitingOn;
+                game.CurrentQuestion = q;
+                foreach(var u in Connections.Values)
+                {
+                    var pong = new Packet(PacketId.NewMBQuestion, q.ToObject());
+                    u.Send(pong.ToString());
+                }
             }
         }
 

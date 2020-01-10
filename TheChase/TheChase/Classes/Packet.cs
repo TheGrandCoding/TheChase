@@ -41,6 +41,11 @@ namespace TheChase.Classes
         /// </summary>
         NewH2HQuestion,
         /// <summary>
+        /// Server tells Client a new money builder question has begun.
+        /// Content: {<see cref="bool"/>, <see cref="MoneyBuilderQ"/>}
+        /// </summary>
+        NewMBQuestion,
+        /// <summary>
         /// Server informs Clients that a user has disconnected
         /// </summary>
         UserLeft,

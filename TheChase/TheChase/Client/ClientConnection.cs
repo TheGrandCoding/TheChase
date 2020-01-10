@@ -15,6 +15,7 @@ namespace TheChase.Client
         public event EventHandler<User> UserJoined;
         public event EventHandler<User> UserDisconnect;
         public event EventHandler<Classes.Game> GameUpdate;
+        public event EventHandler<Classes.MoneyBuilderQ> NewMoneyBuilder;
         public ClientConnection(MainClient form, string name, Func<Connection, Exception, Task> callback) : base(name, callback)
         {
             MainForm = form;
@@ -33,6 +34,13 @@ namespace TheChase.Client
         private void ClientConnection_Receieved(object sender, string e)
         {
             var packet = new Packet(e);
+            Logger.LogMsg(new LogMessage()
+            {
+                Content = packet.ToString(),
+                Error = null,
+                Location = $"Client/REC/{this.Reference}",
+                Severity = LogSeverity.Debug
+            });
             if(packet.Id == PacketId.GiveIdentity)
             {
                 var usr = new User(packet.Content);
@@ -50,6 +58,20 @@ namespace TheChase.Client
                 MainForm.Invoke(new Action(() =>
                 {
                     this.Close(new Exception(packet.Content["reason"].ToObject<string>()));
+                }));
+            } else if (packet.Id == PacketId.NewMBQuestion)
+            {
+                var moneyB = new MoneyBuilderQ(packet.Content);
+                MainForm.Invoke(new Action(() =>
+                {
+                    this.NewMoneyBuilder.Invoke(this, moneyB);
+                }));
+            } 
+            else
+            {
+                MainForm.Invoke(new Action(() =>
+                {
+                    System.Windows.Forms.MessageBox.Show(packet.ToString(), "Unknown Packet", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                 }));
             }
         }

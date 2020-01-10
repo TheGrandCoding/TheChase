@@ -11,5 +11,14 @@ namespace TheChase.Classes
     {
         public JsonEntity(JObject obj) { }
         public abstract JObject ToObject();
+        protected DateTime GetMidnight()
+        {
+            var now = DateTime.Now;
+            return new DateTime(now.Year, now.Month, now.Day);
+        }
+        protected DateTime GetTime(double seconds)
+        {
+            return GetMidnight().AddSeconds(seconds);
+        }
     }
 }

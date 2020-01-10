@@ -28,6 +28,7 @@ namespace TheChase.Classes
         public int Reward;
 
         public User WaitingOn;
+        public Question CurrentQuestion;
 
         void removePlayer(User u)
         {

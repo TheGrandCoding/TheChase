@@ -51,19 +51,20 @@
             this.lblP2 = new System.Windows.Forms.Label();
             this.lblP1 = new System.Windows.Forms.Label();
             this.tabMoneyBuilder = new System.Windows.Forms.TabPage();
+            this.lblMGQuestion = new System.Windows.Forms.Label();
+            this.lblMGPlaying = new System.Windows.Forms.Label();
+            this.gbMBResponses = new System.Windows.Forms.GroupBox();
+            this.btnMGSubmit = new System.Windows.Forms.Button();
+            this.txtMGText = new System.Windows.Forms.TextBox();
             this.btnMBHost = new System.Windows.Forms.Button();
             this.btnMBChaser = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMGReward = new System.Windows.Forms.Label();
             this.btnMBP4 = new System.Windows.Forms.Button();
             this.btnMBP3 = new System.Windows.Forms.Button();
             this.btnMBP2 = new System.Windows.Forms.Button();
             this.btnMBP1 = new System.Windows.Forms.Button();
-            this.lblMGReward = new System.Windows.Forms.Label();
-            this.gbMBResponses = new System.Windows.Forms.GroupBox();
-            this.lblMGPlaying = new System.Windows.Forms.Label();
-            this.lblMGQuestion = new System.Windows.Forms.Label();
-            this.txtMGText = new System.Windows.Forms.TextBox();
-            this.btnMGSubmit = new System.Windows.Forms.Button();
+            this.lblMGTimeRemain = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServers)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabConnect.SuspendLayout();
@@ -85,8 +86,8 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.tabMoneyBuilder.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.gbMBResponses.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvServers
@@ -104,13 +105,14 @@
             this.Column4,
             this.Column5});
             this.dgvServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvServers.Location = new System.Drawing.Point(3, 3);
+            this.dgvServers.Location = new System.Drawing.Point(2, 2);
+            this.dgvServers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvServers.Name = "dgvServers";
             this.dgvServers.ReadOnly = true;
             this.dgvServers.RowHeadersVisible = false;
             this.dgvServers.RowHeadersWidth = 51;
             this.dgvServers.RowTemplate.Height = 24;
-            this.dgvServers.Size = new System.Drawing.Size(1116, 464);
+            this.dgvServers.Size = new System.Drawing.Size(836, 375);
             this.dgvServers.TabIndex = 0;
             this.dgvServers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvServers_CellClick);
             // 
@@ -160,19 +162,21 @@
             this.tabControl1.Controls.Add(this.tabMoneyBuilder);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1130, 499);
+            this.tabControl1.Size = new System.Drawing.Size(848, 405);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabConnect
             // 
             this.tabConnect.Controls.Add(this.dgvServers);
-            this.tabConnect.Location = new System.Drawing.Point(4, 25);
+            this.tabConnect.Location = new System.Drawing.Point(4, 22);
+            this.tabConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabConnect.Name = "tabConnect";
-            this.tabConnect.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConnect.Size = new System.Drawing.Size(1122, 470);
+            this.tabConnect.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabConnect.Size = new System.Drawing.Size(840, 379);
             this.tabConnect.TabIndex = 0;
             this.tabConnect.Text = "Server List";
             this.tabConnect.UseVisualStyleBackColor = true;
@@ -181,10 +185,11 @@
             // 
             this.tabLobby.Controls.Add(this.splitContainer4);
             this.tabLobby.Controls.Add(this.splitContainer1);
-            this.tabLobby.Location = new System.Drawing.Point(4, 25);
+            this.tabLobby.Location = new System.Drawing.Point(4, 22);
+            this.tabLobby.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabLobby.Name = "tabLobby";
-            this.tabLobby.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLobby.Size = new System.Drawing.Size(1122, 470);
+            this.tabLobby.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabLobby.Size = new System.Drawing.Size(840, 379);
             this.tabLobby.TabIndex = 1;
             this.tabLobby.Text = "Lobby";
             this.tabLobby.UseVisualStyleBackColor = true;
@@ -192,7 +197,8 @@
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitContainer4.Location = new System.Drawing.Point(3, 291);
+            this.splitContainer4.Location = new System.Drawing.Point(2, 234);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer4.Name = "splitContainer4";
             // 
             // splitContainer4.Panel1
@@ -203,8 +209,9 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.lblChaser);
-            this.splitContainer4.Size = new System.Drawing.Size(1116, 176);
-            this.splitContainer4.SplitterDistance = 558;
+            this.splitContainer4.Size = new System.Drawing.Size(836, 143);
+            this.splitContainer4.SplitterDistance = 418;
+            this.splitContainer4.SplitterWidth = 3;
             this.splitContainer4.TabIndex = 7;
             this.splitContainer4.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer4_SplitterMoved);
             // 
@@ -212,12 +219,12 @@
             // 
             this.lbSpectators.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbSpectators.FormattingEnabled = true;
-            this.lbSpectators.ItemHeight = 16;
             this.lbSpectators.Items.AddRange(new object[] {
             "Spectators:"});
-            this.lbSpectators.Location = new System.Drawing.Point(0, 57);
+            this.lbSpectators.Location = new System.Drawing.Point(0, 46);
+            this.lbSpectators.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lbSpectators.Name = "lbSpectators";
-            this.lbSpectators.Size = new System.Drawing.Size(558, 119);
+            this.lbSpectators.Size = new System.Drawing.Size(418, 97);
             this.lbSpectators.TabIndex = 5;
             this.lbSpectators.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSpectators_MouseDoubleClick);
             // 
@@ -227,8 +234,9 @@
             this.lblHost.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblHost.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHost.Location = new System.Drawing.Point(0, 0);
+            this.lblHost.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHost.Name = "lblHost";
-            this.lblHost.Size = new System.Drawing.Size(558, 57);
+            this.lblHost.Size = new System.Drawing.Size(418, 46);
             this.lblHost.TabIndex = 4;
             this.lblHost.Text = "Host";
             this.lblHost.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -240,8 +248,9 @@
             this.lblChaser.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblChaser.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChaser.Location = new System.Drawing.Point(0, 0);
+            this.lblChaser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblChaser.Name = "lblChaser";
-            this.lblChaser.Size = new System.Drawing.Size(554, 57);
+            this.lblChaser.Size = new System.Drawing.Size(415, 46);
             this.lblChaser.TabIndex = 5;
             this.lblChaser.Text = "Chaser";
             this.lblChaser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -251,7 +260,8 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -261,8 +271,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(1116, 133);
-            this.splitContainer1.SplitterDistance = 558;
+            this.splitContainer1.Size = new System.Drawing.Size(836, 108);
+            this.splitContainer1.SplitterDistance = 418;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
@@ -270,6 +281,7 @@
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -279,8 +291,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lblP3);
-            this.splitContainer2.Size = new System.Drawing.Size(558, 133);
-            this.splitContainer2.SplitterDistance = 279;
+            this.splitContainer2.Size = new System.Drawing.Size(418, 108);
+            this.splitContainer2.SplitterDistance = 209;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
             // lblP4
@@ -289,8 +302,9 @@
             this.lblP4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblP4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblP4.Location = new System.Drawing.Point(0, 0);
+            this.lblP4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblP4.Name = "lblP4";
-            this.lblP4.Size = new System.Drawing.Size(279, 133);
+            this.lblP4.Size = new System.Drawing.Size(209, 108);
             this.lblP4.TabIndex = 3;
             this.lblP4.Text = "Player Four";
             this.lblP4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -302,8 +316,9 @@
             this.lblP3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblP3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblP3.Location = new System.Drawing.Point(0, 0);
+            this.lblP3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblP3.Name = "lblP3";
-            this.lblP3.Size = new System.Drawing.Size(275, 133);
+            this.lblP3.Size = new System.Drawing.Size(206, 108);
             this.lblP3.TabIndex = 2;
             this.lblP3.Text = "Player Three";
             this.lblP3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -314,6 +329,7 @@
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -323,8 +339,9 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.lblP1);
-            this.splitContainer3.Size = new System.Drawing.Size(554, 133);
-            this.splitContainer3.SplitterDistance = 279;
+            this.splitContainer3.Size = new System.Drawing.Size(415, 108);
+            this.splitContainer3.SplitterDistance = 208;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
             // lblP2
@@ -333,8 +350,9 @@
             this.lblP2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblP2.Location = new System.Drawing.Point(0, 0);
+            this.lblP2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblP2.Name = "lblP2";
-            this.lblP2.Size = new System.Drawing.Size(279, 133);
+            this.lblP2.Size = new System.Drawing.Size(208, 108);
             this.lblP2.TabIndex = 1;
             this.lblP2.Text = "Player Two";
             this.lblP2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -346,8 +364,9 @@
             this.lblP1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblP1.Location = new System.Drawing.Point(0, 0);
+            this.lblP1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblP1.Name = "lblP1";
-            this.lblP1.Size = new System.Drawing.Size(271, 133);
+            this.lblP1.Size = new System.Drawing.Size(204, 108);
             this.lblP1.TabIndex = 0;
             this.lblP1.Text = "Player One";
             this.lblP1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -355,34 +374,91 @@
             // 
             // tabMoneyBuilder
             // 
+            this.tabMoneyBuilder.Controls.Add(this.lblMGTimeRemain);
             this.tabMoneyBuilder.Controls.Add(this.lblMGQuestion);
             this.tabMoneyBuilder.Controls.Add(this.lblMGPlaying);
             this.tabMoneyBuilder.Controls.Add(this.gbMBResponses);
             this.tabMoneyBuilder.Controls.Add(this.btnMBHost);
             this.tabMoneyBuilder.Controls.Add(this.btnMBChaser);
             this.tabMoneyBuilder.Controls.Add(this.panel1);
-            this.tabMoneyBuilder.Location = new System.Drawing.Point(4, 25);
+            this.tabMoneyBuilder.Location = new System.Drawing.Point(4, 22);
+            this.tabMoneyBuilder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabMoneyBuilder.Name = "tabMoneyBuilder";
-            this.tabMoneyBuilder.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMoneyBuilder.Size = new System.Drawing.Size(1122, 470);
+            this.tabMoneyBuilder.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabMoneyBuilder.Size = new System.Drawing.Size(840, 379);
             this.tabMoneyBuilder.TabIndex = 2;
             this.tabMoneyBuilder.Text = "Money Builder";
             this.tabMoneyBuilder.UseVisualStyleBackColor = true;
             // 
+            // lblMGQuestion
+            // 
+            this.lblMGQuestion.Location = new System.Drawing.Point(156, 60);
+            this.lblMGQuestion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMGQuestion.Name = "lblMGQuestion";
+            this.lblMGQuestion.Size = new System.Drawing.Size(677, 84);
+            this.lblMGQuestion.TabIndex = 5;
+            this.lblMGQuestion.Text = "Question";
+            this.lblMGQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMGPlaying
+            // 
+            this.lblMGPlaying.Location = new System.Drawing.Point(156, 7);
+            this.lblMGPlaying.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMGPlaying.Name = "lblMGPlaying";
+            this.lblMGPlaying.Size = new System.Drawing.Size(477, 50);
+            this.lblMGPlaying.TabIndex = 4;
+            this.lblMGPlaying.Text = "Playing";
+            this.lblMGPlaying.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gbMBResponses
+            // 
+            this.gbMBResponses.Controls.Add(this.btnMGSubmit);
+            this.gbMBResponses.Controls.Add(this.txtMGText);
+            this.gbMBResponses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbMBResponses.Location = new System.Drawing.Point(156, 174);
+            this.gbMBResponses.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbMBResponses.Name = "gbMBResponses";
+            this.gbMBResponses.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbMBResponses.Size = new System.Drawing.Size(680, 202);
+            this.gbMBResponses.TabIndex = 3;
+            this.gbMBResponses.TabStop = false;
+            this.gbMBResponses.Text = "Your response";
+            // 
+            // btnMGSubmit
+            // 
+            this.btnMGSubmit.Location = new System.Drawing.Point(578, 136);
+            this.btnMGSubmit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMGSubmit.Name = "btnMGSubmit";
+            this.btnMGSubmit.Size = new System.Drawing.Size(97, 50);
+            this.btnMGSubmit.TabIndex = 6;
+            this.btnMGSubmit.Text = "Submit";
+            this.btnMGSubmit.UseVisualStyleBackColor = true;
+            // 
+            // txtMGText
+            // 
+            this.txtMGText.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMGText.Location = new System.Drawing.Point(4, 94);
+            this.txtMGText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMGText.Name = "txtMGText";
+            this.txtMGText.Size = new System.Drawing.Size(672, 38);
+            this.txtMGText.TabIndex = 0;
+            // 
             // btnMBHost
             // 
-            this.btnMBHost.Location = new System.Drawing.Point(850, 9);
+            this.btnMBHost.Location = new System.Drawing.Point(638, 7);
+            this.btnMBHost.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBHost.Name = "btnMBHost";
-            this.btnMBHost.Size = new System.Drawing.Size(129, 62);
+            this.btnMBHost.Size = new System.Drawing.Size(97, 50);
             this.btnMBHost.TabIndex = 2;
             this.btnMBHost.Text = "button2";
             this.btnMBHost.UseVisualStyleBackColor = true;
             // 
             // btnMBChaser
             // 
-            this.btnMBChaser.Location = new System.Drawing.Point(985, 9);
+            this.btnMBChaser.Location = new System.Drawing.Point(739, 7);
+            this.btnMBChaser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBChaser.Name = "btnMBChaser";
-            this.btnMBChaser.Size = new System.Drawing.Size(129, 62);
+            this.btnMBChaser.Size = new System.Drawing.Size(97, 50);
             this.btnMBChaser.TabIndex = 1;
             this.btnMBChaser.Text = "button1";
             this.btnMBChaser.UseVisualStyleBackColor = true;
@@ -394,110 +470,80 @@
             this.panel1.Controls.Add(this.btnMBP3);
             this.panel1.Controls.Add(this.btnMBP2);
             this.panel1.Controls.Add(this.btnMBP1);
-            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Location = new System.Drawing.Point(6, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(194, 456);
+            this.panel1.Size = new System.Drawing.Size(146, 370);
             this.panel1.TabIndex = 0;
+            // 
+            // lblMGReward
+            // 
+            this.lblMGReward.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMGReward.Location = new System.Drawing.Point(2, 331);
+            this.lblMGReward.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMGReward.Name = "lblMGReward";
+            this.lblMGReward.Size = new System.Drawing.Size(141, 40);
+            this.lblMGReward.TabIndex = 4;
+            this.lblMGReward.Text = "$0";
+            this.lblMGReward.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMBP4
             // 
-            this.btnMBP4.Location = new System.Drawing.Point(3, 324);
+            this.btnMBP4.Location = new System.Drawing.Point(2, 263);
+            this.btnMBP4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBP4.Name = "btnMBP4";
-            this.btnMBP4.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP4.Size = new System.Drawing.Size(141, 65);
             this.btnMBP4.TabIndex = 3;
             this.btnMBP4.Text = "button4";
             this.btnMBP4.UseVisualStyleBackColor = true;
             // 
             // btnMBP3
             // 
-            this.btnMBP3.Location = new System.Drawing.Point(3, 226);
+            this.btnMBP3.Location = new System.Drawing.Point(2, 184);
+            this.btnMBP3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBP3.Name = "btnMBP3";
-            this.btnMBP3.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP3.Size = new System.Drawing.Size(141, 65);
             this.btnMBP3.TabIndex = 2;
             this.btnMBP3.Text = "button3";
             this.btnMBP3.UseVisualStyleBackColor = true;
             // 
             // btnMBP2
             // 
-            this.btnMBP2.Location = new System.Drawing.Point(3, 109);
+            this.btnMBP2.Location = new System.Drawing.Point(2, 89);
+            this.btnMBP2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBP2.Name = "btnMBP2";
-            this.btnMBP2.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP2.Size = new System.Drawing.Size(141, 65);
             this.btnMBP2.TabIndex = 1;
             this.btnMBP2.Text = "button2";
             this.btnMBP2.UseVisualStyleBackColor = true;
             // 
             // btnMBP1
             // 
-            this.btnMBP1.Location = new System.Drawing.Point(3, 3);
+            this.btnMBP1.Location = new System.Drawing.Point(2, 2);
+            this.btnMBP1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMBP1.Name = "btnMBP1";
-            this.btnMBP1.Size = new System.Drawing.Size(188, 80);
+            this.btnMBP1.Size = new System.Drawing.Size(141, 65);
             this.btnMBP1.TabIndex = 0;
             this.btnMBP1.Text = "button1";
             this.btnMBP1.UseVisualStyleBackColor = true;
             // 
-            // lblMGReward
+            // lblMGTimeRemain
             // 
-            this.lblMGReward.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMGReward.Location = new System.Drawing.Point(3, 407);
-            this.lblMGReward.Name = "lblMGReward";
-            this.lblMGReward.Size = new System.Drawing.Size(188, 49);
-            this.lblMGReward.TabIndex = 4;
-            this.lblMGReward.Text = "$0";
-            this.lblMGReward.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gbMBResponses
-            // 
-            this.gbMBResponses.Controls.Add(this.btnMGSubmit);
-            this.gbMBResponses.Controls.Add(this.txtMGText);
-            this.gbMBResponses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbMBResponses.Location = new System.Drawing.Point(208, 214);
-            this.gbMBResponses.Name = "gbMBResponses";
-            this.gbMBResponses.Size = new System.Drawing.Size(906, 248);
-            this.gbMBResponses.TabIndex = 3;
-            this.gbMBResponses.TabStop = false;
-            this.gbMBResponses.Text = "Your response";
-            // 
-            // lblMGPlaying
-            // 
-            this.lblMGPlaying.Location = new System.Drawing.Point(208, 9);
-            this.lblMGPlaying.Name = "lblMGPlaying";
-            this.lblMGPlaying.Size = new System.Drawing.Size(636, 62);
-            this.lblMGPlaying.TabIndex = 4;
-            this.lblMGPlaying.Text = "Playing";
-            this.lblMGPlaying.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblMGQuestion
-            // 
-            this.lblMGQuestion.Location = new System.Drawing.Point(208, 74);
-            this.lblMGQuestion.Name = "lblMGQuestion";
-            this.lblMGQuestion.Size = new System.Drawing.Size(903, 103);
-            this.lblMGQuestion.TabIndex = 5;
-            this.lblMGQuestion.Text = "Question";
-            this.lblMGQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtMGText
-            // 
-            this.txtMGText.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMGText.Location = new System.Drawing.Point(6, 116);
-            this.txtMGText.Name = "txtMGText";
-            this.txtMGText.Size = new System.Drawing.Size(894, 45);
-            this.txtMGText.TabIndex = 0;
-            // 
-            // btnMGSubmit
-            // 
-            this.btnMGSubmit.Location = new System.Drawing.Point(771, 167);
-            this.btnMGSubmit.Name = "btnMGSubmit";
-            this.btnMGSubmit.Size = new System.Drawing.Size(129, 62);
-            this.btnMGSubmit.TabIndex = 6;
-            this.btnMGSubmit.Text = "Submit";
-            this.btnMGSubmit.UseVisualStyleBackColor = true;
+            this.lblMGTimeRemain.Location = new System.Drawing.Point(614, 148);
+            this.lblMGTimeRemain.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMGTimeRemain.Name = "lblMGTimeRemain";
+            this.lblMGTimeRemain.Size = new System.Drawing.Size(217, 24);
+            this.lblMGTimeRemain.TabIndex = 6;
+            this.lblMGTimeRemain.Text = "00:00";
+            this.lblMGTimeRemain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainClient
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 499);
+            this.ClientSize = new System.Drawing.Size(848, 405);
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainClient";
             this.Text = "MainClient";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainClient_FormClosed);
@@ -523,9 +569,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.tabMoneyBuilder.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.gbMBResponses.ResumeLayout(false);
             this.gbMBResponses.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -567,5 +613,6 @@
         private System.Windows.Forms.Label lblMGQuestion;
         private System.Windows.Forms.TextBox txtMGText;
         private System.Windows.Forms.Button btnMGSubmit;
+        private System.Windows.Forms.Label lblMGTimeRemain;
     }
 }

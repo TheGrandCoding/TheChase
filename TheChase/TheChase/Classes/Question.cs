@@ -16,6 +16,8 @@ namespace TheChase.Classes
             Prompt = obj["p"].ToObject<string>();
             Answers = obj["a"].ToObject<string[]>();
             CorrectAnswer = obj["i"].ToObject<int>();
+            GivenAt = GetTime(obj["at"].ToObject<double>());
+            DueBefore = GetTime(obj["due"].ToObject<double>());
         }
         public override JObject ToObject()
         {
@@ -23,11 +25,15 @@ namespace TheChase.Classes
             obj["p"] = Prompt;
             obj["a"] = JsonConvert.SerializeObject(Answers);
             obj["i"] = CorrectAnswer.ToString();
+            obj["at"] = GivenAt.TimeOfDay.TotalSeconds;
+            obj["due"] = DueBefore.TimeOfDay.TotalSeconds;
             return obj;
         }
         public string Prompt { get; set; }
         public  string[] Answers { get; set; }
         public int CorrectAnswer { get; set; }
+        public DateTime GivenAt { get; set; }
+        public DateTime DueBefore { get; set; }
 
     }
 }

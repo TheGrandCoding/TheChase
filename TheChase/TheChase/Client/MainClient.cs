@@ -40,6 +40,16 @@ namespace TheChase.Client
             Client.UserJoined += Client_UserJoined;
             Client.UserDisconnect += Client_UserDisconnect;
             Client.GameUpdate += Client_GameUpdate;
+            Client.NewMoneyBuilder += Client_NewMoneyBuilder;
+        }
+
+        private void Client_NewMoneyBuilder(object sender, MoneyBuilderQ e)
+        {
+            lblMGQuestion.Text = e.Prompt;
+            if(e.WaitingFor.Id == SelfUser.Id)
+            {
+                
+            }
         }
 
         Color getColor(Control lbl)

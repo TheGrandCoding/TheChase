@@ -11,18 +11,15 @@ namespace TheChase.Classes
     {
         public MoneyBuilderQ() { }
         public User WaitingFor;
-        public DateTime Started;
         public MoneyBuilderQ(JObject obj) : base(obj)
         {
             WaitingFor = Common.GetUser(obj["wait"].ToObject<uint>());
-            Started = DateTime.Parse(obj["time"].ToObject<string>());
         }
 
         public override JObject ToObject()
         {
             var jobj = base.ToObject();
             jobj["wait"] = WaitingFor.Id;
-            jobj["time"] = Started.ToString("hh:MM:ss.fff");
             return jobj;
         }
     }

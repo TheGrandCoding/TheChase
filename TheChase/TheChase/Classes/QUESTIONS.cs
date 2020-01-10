@@ -86,7 +86,7 @@ namespace TheChase.Classes
                 var convert = rand + 1;
                 if (!doneQs.Contains(convert))
                 {
-                    q = ClosedQuestions[convert];
+                    q = ClosedQuestions[rand];
                     doneQs.Add(convert);
                 }
                 tries++;
@@ -94,7 +94,7 @@ namespace TheChase.Classes
             return q;
         }
 
-        public static Question GetOpen()
+        public static MoneyBuilderQ GetOpen()
         {
             MoneyBuilderQ q = null;
             int tries = 0;
@@ -104,7 +104,7 @@ namespace TheChase.Classes
                 var convert = -(rand + 1);
                 if (!doneQs.Contains(convert))
                 {
-                    q = OpenQuestions[convert];
+                    q = OpenQuestions[rand];
                     doneQs.Add(convert);
                 }
                 tries++;
